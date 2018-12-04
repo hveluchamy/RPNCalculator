@@ -13,13 +13,4 @@ public class StackOperationManager {
         if(!stack.isEmpty())
         stack.pop();
     }
-
-    public static void postArithmeticOperation(String operatorToken, Stack stack) {
-        stack.pop();
-        if(operatorToken.toLowerCase().equals("sqrt")){
-            return;
-        }
-
-        stack.pop();
-    }
 }

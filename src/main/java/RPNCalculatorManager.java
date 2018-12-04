@@ -18,30 +18,33 @@ public class RPNCalculatorManager {
 
 
 
-    public static Double arithmeticOperationResolver(String op, Double e1, Double e2) {
+    public static void arithmeticOperationResolver(String op, double e1, double e2, Stack stack) {
         OperatorHandler operatorHandler;
+        double calculatedValue;
         if(op.equals("+")) {
             operatorHandler = new AdditionOperator(e1,e2);
-            return operatorHandler.calculate();
+            calculatedValue =  operatorHandler.calculate();
         }
         else if(op.equals("-")) {
             operatorHandler = new SubtractionOperator(e1,e2);
-            return operatorHandler.calculate();
+            calculatedValue = operatorHandler.calculate();
         }
         else if(op.equals("*")) {
             operatorHandler = new MultiplicationOperator(e1,e2);
-            return operatorHandler.calculate();
+            calculatedValue = operatorHandler.calculate();
         }
         else if(op.equals("/")) {
             operatorHandler = new DivisionOperator(e1,e2);
-            return operatorHandler.calculate();
+            calculatedValue = operatorHandler.calculate();
         } else if(op.equals("sqrt")){
             operatorHandler = new SquareRootOperator(e1);
-            return operatorHandler.calculate();
+            calculatedValue = operatorHandler.calculate();
         }
         else {
             throw new IllegalArgumentException("Invalid operator.");
         }
+
+        operatorHandler.postArithmeticOperation(op, stack, calculatedValue);
     }
 
     public static void stackOperationResolver(String token){
@@ -64,9 +67,7 @@ public class RPNCalculatorManager {
             try {
                 if (isOperator(token)) {
                     int stackSize = stack.size();
-                    Double calculatedValue = arithmeticOperationResolver(token, stack.get(stackSize-1), stack.get(stackSize-2));
-                    stackOperationManager.postArithmeticOperation(token, stack);
-                    stack.push(calculatedValue);
+                    arithmeticOperationResolver(token, stack.get(stackSize-1), stack.get(stackSize-2), stack);
                     previousWasOperandOrUndo = false;
                 } else if(InputTokenValidation.isNumeric(token)){
                     stack.push(Double.parseDouble(token));
@@ -75,17 +76,14 @@ public class RPNCalculatorManager {
                     stackOperationResolver(token);
                 }
                 else {
-                    throw new Exception("Not a valid input parameter: " + token);
+                    System.out.println("Not a valid input parameter: " + token);
                 }
                 i++;
             } catch (ArrayIndexOutOfBoundsException e){
                 System.out.println("Operator " + token+ " (position " +i + "): insufficient parameters");
             }
-
         }
-
         System.out.println("Stack: " + stack);
-       // return stack.lastElement();
     }
 
 

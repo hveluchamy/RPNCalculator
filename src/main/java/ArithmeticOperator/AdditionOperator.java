@@ -1,11 +1,11 @@
 package ArithmeticOperator;
 
 public class AdditionOperator extends ArithmeticOperatorBase {
-    public AdditionOperator(Double e1, Double e2) {
+    public AdditionOperator(double e1, double e2) {
         super(e1, e2);
     }
     @Override
-    public Double calculate() {
+    public double calculate() {
         return e1 + e2;
     }
 }

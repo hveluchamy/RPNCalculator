@@ -1,12 +1,12 @@
 package ArithmeticOperator;
 
 public class DivisionOperator extends ArithmeticOperatorBase {
-    public DivisionOperator(Double e1, Double e2) {
+    public DivisionOperator(double e1, double e2) {
         super(e1, e2);
     }
 
     @Override
-    public Double calculate() {
+    public double calculate() {
         return e2 / e1;
     }
 }

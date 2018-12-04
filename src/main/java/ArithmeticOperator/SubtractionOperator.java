@@ -5,7 +5,7 @@ public  class SubtractionOperator extends ArithmeticOperatorBase {
         super(e1, e2);
     }
     @Override
-    public Double calculate() {
+    public double calculate() {
         return e2 - e1;
     }
 }
