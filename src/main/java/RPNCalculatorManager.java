@@ -2,6 +2,7 @@ import java.util.EmptyStackException;
 import java.util.Scanner;
 import java.util.Stack;
 import ArithmeticOperator.*;
+import Utilities.ResultWithDecimalPercisionUtility;
 import Validaton.*;
 
 import static Validaton.InputTokenValidation.isOperator;
@@ -44,7 +45,7 @@ public class RPNCalculatorManager {
             throw new IllegalArgumentException("Invalid operator.");
         }
 
-        operatorHandler.postArithmeticOperation(op, stack, calculatedValue);
+        operatorHandler.postArithmeticOperation(stack, calculatedValue);
     }
 
     public static void stackOperationResolver(String token){
@@ -65,9 +66,13 @@ public class RPNCalculatorManager {
         int i = 1;
         for(String token : tokens) {
             try {
+                double e1, e2 = 0;
                 if (isOperator(token)) {
                     int stackSize = stack.size();
-                    arithmeticOperationResolver(token, stack.get(stackSize-1), stack.get(stackSize-2), stack);
+                     e1 = stack.get(stackSize-1);
+                     if(!token.toLowerCase().equals("sqrt") )
+                     e2 = stack.get(stackSize-2);
+                    arithmeticOperationResolver(token, e1, e2, stack);
                     previousWasOperandOrUndo = false;
                 } else if(InputTokenValidation.isNumeric(token)){
                     stack.push(Double.parseDouble(token));
@@ -83,7 +88,11 @@ public class RPNCalculatorManager {
                 System.out.println("Operator " + token+ " (position " +i + "): insufficient parameters");
             }
         }
-        System.out.println("Stack: " + stack);
+        //myList.stream().map(String::toUpperCase).forEachOrdered(System.out::println);
+       // stack.stream().forEachOrdered(System.out::print);
+        System.out.print("Stack: ");
+        stack.stream().forEach(item->{System.out.print(ResultWithDecimalPercisionUtility.getDecimalWithPercision(item, 10) + " ");});;
+        System.out.println();
     }
 
 

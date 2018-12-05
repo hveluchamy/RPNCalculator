@@ -6,6 +6,7 @@ public  class SubtractionOperator extends ArithmeticOperatorBase {
     }
     @Override
     public double calculate() {
-        return e2 - e1;
+        double d = e2 - e1;
+        return getDecimalWith15Percision(d);
     }
 }

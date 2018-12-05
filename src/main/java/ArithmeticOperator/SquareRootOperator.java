@@ -1,5 +1,7 @@
 package ArithmeticOperator;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Stack;
 
 public class SquareRootOperator extends ArithmeticOperatorBase {
@@ -8,10 +10,11 @@ public class SquareRootOperator extends ArithmeticOperatorBase {
     }
     @Override
     public double calculate() {
-        return Math.sqrt(e1);
+        double d =  Math.sqrt(e1);
+        return getDecimalWith15Percision(d);
     }
 
-    public void postArithmeticOperation(String operatorToken, Stack stack, double calculatedValue) {
+    public void postArithmeticOperation(Stack stack, double calculatedValue) {
         stack.pop();
         stack.push(calculatedValue);
     }

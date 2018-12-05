@@ -12,14 +12,8 @@ class AdditionOperatorTest {
 
     }
 
-
     @org.junit.jupiter.api.Test
-    void calculate() {
-       assertNotNull(additionOperator.calculate());
-    }
-
-    @org.junit.jupiter.api.Test
-    void calculate1() {
+    void calculateIfEquals() {
         additionOperator = new AdditionOperator(4.0,5.0);
         assertEquals(9.0, additionOperator.calculate());
     }
